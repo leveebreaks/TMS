@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMS.API", "TMS.API\TMS.API.csproj", "{0E6D45E4-475C-4440-B1A0-BF946B366457}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMS.DAL", "TMS.DAL\TMS.DAL.csproj", "{3EC62959-E86C-4823-8BE5-15D968FB92BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E6D45E4-475C-4440-B1A0-BF946B366457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E6D45E4-475C-4440-B1A0-BF946B366457}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E6D45E4-475C-4440-B1A0-BF946B366457}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E6D45E4-475C-4440-B1A0-BF946B366457}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EC62959-E86C-4823-8BE5-15D968FB92BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EC62959-E86C-4823-8BE5-15D968FB92BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EC62959-E86C-4823-8BE5-15D968FB92BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EC62959-E86C-4823-8BE5-15D968FB92BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
