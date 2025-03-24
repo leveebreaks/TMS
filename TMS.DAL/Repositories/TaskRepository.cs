@@ -1,5 +1,5 @@
 ﻿using TMS.DAL.Data;
-using TMS.DAL.Models;
+using TMS.Domain.Models;
 
 namespace TMS.DAL.Repositories;
 

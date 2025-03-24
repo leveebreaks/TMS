@@ -1,4 +1,4 @@
-﻿namespace TMS.DAL.Models;
+﻿namespace TMS.Domain.Models;
 
 public enum TaskStatus
 {

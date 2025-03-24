@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TMS.DAL.Models;
+using TMS.Domain.Models;
 
 namespace TMS.DAL.Data;
 
