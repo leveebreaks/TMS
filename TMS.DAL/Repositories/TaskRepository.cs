@@ -25,7 +25,7 @@ public class TaskRepository : IRepository<TaskItem>
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<TaskItem>> GetAllAsync()
+    public async Task<List<TaskItem>> GetAllAsync()
     {
         return await _context.TaskItems.ToListAsync();
     }
