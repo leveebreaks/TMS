@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using TMS.API.Services;
 using TMS.DAL.Data;
 using TMS.DAL.Repositories;
 using TMS.Domain.Models;
 using TMS.Infrastructure.Messaging;
+using TMS.Messages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,14 +14,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 var sbConnectionString = builder.Configuration.GetConnectionString("ServiceBusConnectionString");
-var sbTaskCommandQueue = builder.Configuration.GetConnectionString("ServiceBusTaskCommandsQueue");
-var sbTaskEventQueue = builder.Configuration.GetConnectionString("ServiceBusTaskEventsQueue");
+var sbTaskCommandQueue = builder.Configuration["ServiceBusTaskCommandsQueue"];
+var sbTaskEventQueue = builder.Configuration["ServiceBusTaskEventsQueue"];
+Console.WriteLine(sbConnectionString,  sbTaskCommandQueue, sbTaskEventQueue);
 builder.Services.AddSingleton<IMessageBrokerHandler>(provider => 
     new AzureServiceBusHandler(sbConnectionString, sbTaskCommandQueue, sbTaskEventQueue));
 
-var sqlConnectionString = builder.Configuration.GetConnectionString("SqlConnectionString");
+var sqlConnectionString = builder.Configuration.GetConnectionString("AzureSqlDbConnectionString");
 builder.Services.AddDbContext<TaskDbContext>(options => options.UseSqlServer(sqlConnectionString));
 builder.Services.AddScoped<IRepository<TaskItem>, TaskRepository>();
+
+builder.Services.AddScoped<ITaskService, TaskService>();
 
 var app = builder.Build();
 
@@ -32,19 +37,23 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/tasks", async () =>
+app.MapGet("/tasks", async (ITaskService taskService) =>
 {
-    return Results.Ok();
+    var tasks = await taskService.GetTasksAsync();
+    return Results.Ok(tasks);
 });
 
-app.MapPost("/tasks", () =>
+app.MapPost("/tasks", async (ITaskService taskService) =>
 {
-
+    await taskService.CreateTaskAsync(
+        "Configure Environment",
+        "Set up the local environment, make sure all the services are configured and up",
+        "John Johnson");
 });
 
-app.MapPatch("/tasks/{id}", () =>
-{
-    
-});
+// app.MapPatch("/tasks/{id}", () =>
+// {
+//     
+// });
 
 app.Run();
