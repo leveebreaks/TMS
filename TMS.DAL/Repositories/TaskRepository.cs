@@ -1,24 +1,32 @@
-﻿using TMS.DAL.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using TMS.DAL.Data;
 using TMS.Domain.Models;
 
 namespace TMS.DAL.Repositories;
 
-public class TaskRepository(TaskDbContext context) : ITaskRepository
+public class TaskRepository : IRepository<TaskItem>
 {
-    public void AddTask(TaskItem item)
+    private readonly TaskDbContext _context;
+
+    public TaskRepository(TaskDbContext context)
     {
-        context.TaskItems.Add(item);
-        context.SaveChanges();
+        _context = context;
     }
 
-    public void UpdateTask(TaskItem item)
+    public async Task AddAsync(TaskItem item)
     {
-        context.TaskItems.Update(item);
-        context.SaveChanges();
+        _context.TaskItems.Add(item);
+        await _context.SaveChangesAsync();
     }
 
-    public IEnumerable<TaskItem> GetAllTasks()
+    public async Task UpdateAsync(TaskItem item)
     {
-        return context.TaskItems;
+        _context.TaskItems.Update(item);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<TaskItem>> GetAllAsync()
+    {
+        return await _context.TaskItems.ToListAsync();
     }
 }

@@ -2,9 +2,9 @@
 
 namespace TMS.DAL.Repositories;
 
-public interface ITaskRepository
+public interface IRepository<T> where T : class
 {
-    void AddTask(TaskItem item);
-    void UpdateTask(TaskItem item);
-    IEnumerable<TaskItem> GetAllTasks();
+    Task AddAsync(T item);
+    Task UpdateAsync(T item);
+    Task<IEnumerable<T>> GetAllAsync();
 }
