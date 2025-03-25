@@ -32,7 +32,19 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/tasks", () => Results.Ok())
-    .WithName("GetTasks");
+app.MapGet("/tasks", async () =>
+{
+    return Results.Ok();
+});
+
+app.MapPost("/tasks", () =>
+{
+
+});
+
+app.MapPatch("/tasks/{id}", () =>
+{
+    
+});
 
 app.Run();
