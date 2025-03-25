@@ -1,7 +1,9 @@
-﻿namespace TMS.Infrastructure.Messaging;
+﻿using TMS.Messages;
+
+namespace TMS.Infrastructure.Messaging;
 
 public interface IMessageBrokerHandler
 {
-    Task SendMessageAsync(string queue, object message);
-    Task ReceiveMessageAsync(string queue, Func<object, Task> action);
+    Task SendMessageAsync<T>(T message) where T : BaseMessage;
+    Task ProcessMessagesAsync(Func<object, Task> messageHandler, Func<object, Task> errorHandler);
 }
